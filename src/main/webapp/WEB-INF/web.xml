@@ -8,4 +8,12 @@
             30
         </session-timeout>
     </session-config>
+    <servlet>
+        <servlet-name>StudentServlet</servlet-name>
+        <servlet-class>controller.StudentServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>StudentServlet</servlet-name>
+        <url-pattern>/StudentServlet</url-pattern>
+    </servlet-mapping>
 </web-app>

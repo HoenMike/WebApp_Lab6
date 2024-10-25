@@ -13,12 +13,12 @@
 	<body>
 		<div class="container mt-5">
 			<h1 class="mb-4">Course Registration Demo</h1>
-			<form action="Student" method="post" class="mb-4">
+			<form action="${pageContext.request.contextPath}/StudentServlet" method="post">
 				<input type="hidden" name="action" value="view" />
 				<div class="form-row align-items-end">
 					<div class="form-group col-md-10">
 						<label for="studentID">Student ID:</label>
-						<input type="text" class="form-control" id="studentID" name="studentID" required />
+						<input type="text" class="form-control" id="studentID" name="studentId" required />
 					</div>
 					<div class="form-group col-md-2">
 						<button type="submit" class="btn btn-primary">Submit</button>
@@ -27,7 +27,9 @@
 			</form>
 
 			<h2>Manager</h2>
-			<a href="Student" class="btn btn-primary mr-2">Students Manager</a>
+			<a href="/view/studentManager.jsp?action=list" class="btn btn-primary mr-2"
+				>Students Manager</a
+			>
 			<a href="Course" class="btn btn-primary">Courses Manager</a>
 		</div>
 

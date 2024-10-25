@@ -95,7 +95,7 @@ public class StudentServlet extends HttpServlet {
         try {
             switch (action) {
                 case "view":
-                    int studentId = Integer.parseInt(request.getParameter("studentID"));
+                    int studentId = Integer.parseInt(request.getParameter("studentId"));
                     viewStudentDetails(studentId, request, response);
                     break;
                 case "add":
@@ -111,10 +111,15 @@ public class StudentServlet extends HttpServlet {
                     removeCourseRegistration(request, response);
                     break;
                 default:
-                    response.sendRedirect("Student");
+                    // Redirect to the student list instead of directly to studentDetails.jsp
+                    response.sendRedirect("view/studentDetails.jsp?action=list");
             }
         } catch (SQLException ex) {
             throw new ServletException(ex);
+        } catch (NumberFormatException ex) {
+            // Handle invalid student ID input
+            request.setAttribute("error", "Invalid student ID format");
+            request.getRequestDispatcher("index.jsp").forward(request, response);
         }
     }
 
@@ -141,9 +146,9 @@ public class StudentServlet extends HttpServlet {
             request.setAttribute("student", student);
             request.setAttribute("registeredCourses", registeredCourses);
             request.setAttribute("availableCourses", availableCourses);
-            request.getRequestDispatcher("studentDetails.jsp").forward(request, response);
+            request.getRequestDispatcher("view/studentDetails.jsp").forward(request, response);
         } else {
-            response.sendRedirect("index.jsp");
+            response.sendRedirect("view/index.jsp");
         }
     }
 
