@@ -112,7 +112,7 @@ public class CourseServlet extends HttpServlet {
             throws SQLException, ServletException, IOException {
         List<Course> courses = courseDAO.getAllCourses();
         request.setAttribute("courses", courses);
-        request.getRequestDispatcher("courseList.jsp").forward(request, response);
+        request.getRequestDispatcher("/view/courseManager.jsp").forward(request, response);
     }
 
     private void viewCourse(HttpServletRequest request, HttpServletResponse response)
