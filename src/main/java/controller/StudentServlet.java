@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package controller;
 
 import java.io.IOException;
@@ -18,21 +14,12 @@ import model.Course;
 import model.Student;
 
 /**
- *
- * @author hoang
+ * Servlet implementation class StudentServlet
  */
 @WebServlet(name = "StudentServlet", urlPatterns = {"/StudentServlet"})
 public class StudentServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    private static final long serialVersionUID = 1L;
     private StudentDAO studentDAO;
 
     @Override
@@ -40,15 +27,6 @@ public class StudentServlet extends HttpServlet {
         studentDAO = new StudentDAO();
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -79,14 +57,6 @@ public class StudentServlet extends HttpServlet {
         }
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -111,13 +81,11 @@ public class StudentServlet extends HttpServlet {
                     removeCourseRegistration(request, response);
                     break;
                 default:
-                    // Redirect to the student list instead of directly to studentDetails.jsp
-                    response.sendRedirect("view/studentDetails.jsp?action=list");
+                    response.sendRedirect("StudentServlet?action=list");
             }
         } catch (SQLException ex) {
             throw new ServletException(ex);
         } catch (NumberFormatException ex) {
-            // Handle invalid student ID input
             request.setAttribute("error", "Invalid student ID format");
             request.getRequestDispatcher("index.jsp").forward(request, response);
         }
@@ -127,7 +95,7 @@ public class StudentServlet extends HttpServlet {
             throws SQLException, ServletException, IOException {
         List<Student> students = studentDAO.getAllStudents();
         request.setAttribute("students", students);
-        request.getRequestDispatcher("studentList.jsp").forward(request, response);
+        request.getRequestDispatcher("view/studentManager.jsp").forward(request, response);
     }
 
     private void viewStudent(HttpServletRequest request, HttpServletResponse response)
@@ -158,7 +126,7 @@ public class StudentServlet extends HttpServlet {
         Student student = new Student();
         student.setName(name);
         studentDAO.addStudent(student);
-        response.sendRedirect("Student");
+        response.sendRedirect("StudentServlet?action=list");
     }
 
     private void updateStudent(HttpServletRequest request, HttpServletResponse response)
@@ -169,14 +137,14 @@ public class StudentServlet extends HttpServlet {
         student.setId(id);
         student.setName(name);
         studentDAO.updateStudent(student);
-        response.sendRedirect("Student");
+        response.sendRedirect("StudentServlet?action=list");
     }
 
     private void deleteStudent(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         studentDAO.deleteStudent(id);
-        response.sendRedirect("Student");
+        response.sendRedirect("StudentServlet?action=list");
     }
 
     private void addCourseRegistration(HttpServletRequest request, HttpServletResponse response)
@@ -184,7 +152,7 @@ public class StudentServlet extends HttpServlet {
         int studentId = Integer.parseInt(request.getParameter("studentId"));
         int courseId = Integer.parseInt(request.getParameter("courseId"));
         studentDAO.addCourseRegistration(studentId, courseId);
-        response.sendRedirect("Student?action=view&studentId=" + studentId);
+        response.sendRedirect("StudentServlet?action=view&studentId=" + studentId);
     }
 
     private void removeCourseRegistration(HttpServletRequest request, HttpServletResponse response)
@@ -192,7 +160,7 @@ public class StudentServlet extends HttpServlet {
         int studentId = Integer.parseInt(request.getParameter("studentId"));
         int courseId = Integer.parseInt(request.getParameter("courseId"));
         studentDAO.removeCourseRegistration(studentId, courseId);
-        response.sendRedirect("Student?action=view&studentId=" + studentId);
+        response.sendRedirect("StudentServlet?action=view&studentId=" + studentId);
     }
 
     private void showEditForm(HttpServletRequest request, HttpServletResponse response)
@@ -200,17 +168,11 @@ public class StudentServlet extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("studentId"));
         Student student = studentDAO.getStudent(id);
         request.setAttribute("student", student);
-        request.getRequestDispatcher("studentForm.jsp").forward(request, response);
+        request.getRequestDispatcher("view/studentForm.jsp").forward(request, response);
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
-
+    }
 }

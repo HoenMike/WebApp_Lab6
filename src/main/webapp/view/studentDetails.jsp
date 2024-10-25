@@ -25,7 +25,11 @@
 
 					<div class="mb-4">
 						<h3>Select Course</h3>
-						<form action="Student" method="post" class="form-inline">
+						<form
+							action="${pageContext.request.contextPath}/StudentServlet"
+							method="post"
+							class="form-inline"
+						>
 							<input type="hidden" name="studentId" value="${student.id}" />
 							<input type="hidden" name="action" value="addCourse" />
 							<div class="form-group mr-2">
@@ -55,7 +59,11 @@
 										<td>${course.id}</td>
 										<td>${course.name}</td>
 										<td>
-											<form action="Student" method="post" style="display: inline">
+											<form
+												action="${pageContext.request.contextPath}/StudentServlet"
+												method="post"
+												style="display: inline"
+											>
 												<input type="hidden" name="studentId" value="${student.id}" />
 												<input type="hidden" name="courseId" value="${course.id}" />
 												<input type="hidden" name="action" value="removeCourse" />
@@ -69,9 +77,9 @@
 					</div>
 
 					<div class="mt-4">
-						<div class="mt-4">
-							<a href="view/index.jsp" class="btn btn-secondary">Back to Homepage</a>
-						</div>
+						<a href="${pageContext.request.contextPath}/view/index.jsp" class="btn btn-secondary"
+							>Back to Homepage</a
+						>
 					</div>
 				</div>
 			</div>

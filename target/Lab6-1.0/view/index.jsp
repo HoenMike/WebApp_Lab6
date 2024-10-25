@@ -27,10 +27,14 @@
 			</form>
 
 			<h2>Manager</h2>
-			<a href="/view/studentManager.jsp?action=list" class="btn btn-primary mr-2"
+			<a
+				href="${pageContext.request.contextPath}/StudentServlet?action=list"
+				class="btn btn-primary mr-2"
 				>Students Manager</a
 			>
-			<a href="Course" class="btn btn-primary">Courses Manager</a>
+			<a href="${pageContext.request.contextPath}/CourseServlet?action=list" class="btn btn-primary"
+				>Courses Manager</a
+			>
 		</div>
 
 		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
