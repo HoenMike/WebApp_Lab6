@@ -13,7 +13,7 @@
 	<body>
 		<div class="container mt-5">
 			<h1 class="mb-4">Course Registration Demo</h1>
-			<form action="Student" method="post" class="mb-4">
+			<form action="StudentServlet" method="post" class="mb-4">
 				<input type="hidden" name="action" value="view" />
 				<div class="form-row align-items-end">
 					<div class="form-group col-md-10">
